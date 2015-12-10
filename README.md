@@ -7,9 +7,17 @@
 ```bash
 $ npm install -g gulp
 $ npm install
-$ gulp
+$ gulp build
+$ gulp watch
 ```
 
+จากนั้นเปิด terminal/cmd อีกหน้าเพื่อรัน web sever
+
+```bash
+$ gulp serve
+```
+
+จะพบโค้ดที่ build แล้วอยู่ที่ http://localhost:3000/bot.js ให้ copy ไป Add new AI ใน http://kana.github.io/othello-js/
 
 #kana othello-js
 
