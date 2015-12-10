@@ -26,7 +26,7 @@ const COLOR = 1;
 function negamax(gameTree, depth=MAX_DEPTH, alpha=ALPHA, beta=BETA, color=COLOR) {
   if ( depth === 0 || gameTree.moves.length === 0) {
     return {
-      move: null, // TODO: check pass condition
+      move: null,
       value: color * heuristic(gameTree)
     };
   }
