@@ -66,9 +66,20 @@ function heuristic(gameTree) {
   let chipCount = 0;
   for( let index in gameTree.board ) {
     if( gameTree.board[index] === currentPlayer ){
-      chipCount = chipCount + 1;
+      chipCount = chipCount + positionScore(gameTree.board, index);
     }
   }
   return chipCount;
+}
+
+function positionScore (board, index) {
+  let cornerIndexes = [0, 7, 56, 63];
+  let isCorner = cornerIndexes.indexOf(index) === -1 ? false : true;
+  
+  if(isCorner) {
+    return 5;
+  } else {
+    return 1;
+  }
 }
 
