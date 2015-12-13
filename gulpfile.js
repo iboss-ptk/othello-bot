@@ -11,6 +11,7 @@ var mocha = require('gulp-mocha');
 
 var srcList = [
   // load ordering
+  './src/util.js',
   './src/negamax.js',
   './src/main.js'
 ];

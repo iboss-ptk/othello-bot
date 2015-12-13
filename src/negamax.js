@@ -1,4 +1,9 @@
-const MAX_DEPTH = 8;
+/**
+ * @dependencies
+ * - util.js
+ */
+
+const MAX_DEPTH = 6;
 const ALPHA = -Infinity;
 const BETA = Infinity;
 
@@ -62,24 +67,35 @@ function negamax(gameTree, depth=MAX_DEPTH, alpha=ALPHA, beta=BETA, color=COLOR)
  */
 
 function heuristic(gameTree) {
-  let currentPlayer = gameTree.player;
-  let chipCount = 0;
-  for( let index in gameTree.board ) {
-    if( gameTree.board[index] === currentPlayer ){
-      chipCount = chipCount + positionScore(gameTree.board, index);
-    }
+  let bot = gameTree.player;
+  let enemy = othello.nextPlayer(bot);
+
+  function parity(w) {
+    let botChips = countChips(gameTree.board, bot);
+    let enemyChips = countChips(gameTree.board, enemy);
+
+    return w * normalizedScore(botChips, enemyChips);
   }
-  return chipCount;
+
+  function corner(w) {
+    let selectedBlocks = getCorners(0, 0, 7, 7);
+    let botChips = countChips(gameTree.board, bot, selectedBlocks);
+    let enemyChips = countChips(gameTree.board, enemy, selectedBlocks);
+
+    return w * normalizedScore(botChips, enemyChips);
+  }
+
+  return parity(1) + corner(10);
 }
 
-function positionScore (board, index) {
-  let cornerIndexes = [0, 7, 56, 63];
-  let isCorner = cornerIndexes.indexOf(index) === -1 ? false : true;
-  
-  if(isCorner) {
-    return 5;
-  } else {
-    return 1;
-  }
+function normalizedScore(botChips, enemyChips) {
+  return (botChips - enemyChips) / (botChips + enemyChips);
+}
+
+function countChips(board, target, selectedBlocks) {
+  return board
+    .filter((b, i) =>
+      selectedBlocks ? selectedBlocks.indexOf(i) !== -1 : true)
+    .filter(block => block === target).length;
 }
 
