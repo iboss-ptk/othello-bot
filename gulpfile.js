@@ -15,6 +15,10 @@ var srcList = [
   './src/main.js'
 ];
 
+gulp.task('default', function() {
+
+}) ;
+
 gulp.task('serve', serve('.'));
 
 gulp.task('test', function () {
