@@ -81,11 +81,16 @@ function heuristic(gameTree) {
     let selectedBlocks = getCorners(0, 0, 7, 7);
     let botChips = countChips(gameTree.board, bot, selectedBlocks);
     let enemyChips = countChips(gameTree.board, enemy, selectedBlocks);
-
     return w * normalizedScore(botChips, enemyChips);
   }
 
-  return parity(1) + corner(10);
+  function mobility(w){
+    let botMobility = gameTree.moves.length;
+    let enemyMobility = getNextMobilityAverage(gameTree);
+    return w * normalizedScore(botMobility,enemyMobility);
+  }
+
+  return parity(1) + corner(10) + mobility(5);
 }
 
 function normalizedScore(botChips, enemyChips) {
