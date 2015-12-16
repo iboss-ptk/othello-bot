@@ -3,7 +3,7 @@
  * - util.js
  */
 
-const MAX_DEPTH = 6;
+const MAX_DEPTH = 4;
 const ALPHA = -Infinity;
 const BETA = Infinity;
 
@@ -90,10 +90,13 @@ function heuristic(gameTree) {
     return w * normalizedScore(botMobility,enemyMobility);
   }
 
-  return parity(1) + corner(10) + mobility(5);
+  return parity(1) + corner(10) + mobility(1);
 }
 
 function normalizedScore(botChips, enemyChips) {
+  if ( botChips + enemyChips === 0 ) {
+    return 0;
+  }
   return (botChips - enemyChips) / (botChips + enemyChips);
 }
 

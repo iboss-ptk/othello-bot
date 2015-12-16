@@ -14,7 +14,6 @@
 
 function findTheBestMove (gameTree) {
   let bestMove = negamax(gameTree);
-  console.log(bestMove.value);
   return bestMove.move;
 }
 
